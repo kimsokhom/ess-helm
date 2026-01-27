@@ -1,0 +1,17 @@
+# values.yaml – adjust as needed
+replicaCount: 1
+
+image:
+  repository: myregistry/ess-app      # <-- change to the container image the chart expects
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+# If the chart expects environment variables (e.g., DB connection), you can leave them blank
+# and fill them later via Railway’s Variables UI.
+env:
+  DATABASE_URL: ""
+  API_KEY: ""
