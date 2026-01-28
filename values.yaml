@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: myregistry/ess-app      # <-- change to the container image the chart expects
+  repository: myregistry/ess-app # <-- change to the container image the chart expects
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -13,5 +13,15 @@ service:
 # If the chart expects environment variables (e.g., DB connection), you can leave them blank
 # and fill them later via Railway’s Variables UI.
 env:
-  DATABASE_URL: ""
+  DATABASE_URL: "" 
   API_KEY: ""
+  POSTGRES_HOST: "" 
+  POSTGRES_PORT: "" 
+  POSTGRES_DB: "" 
+  POSTGRES_USER: "" 
+  POSTGRES_PASSWORD: "" 
+  JWT_SECRET: "" 
+  # optional email stuff
+  SMTP_HOST: ""
+  SMTP_USER: ""
+  SMTP_PASSWORD: ""
