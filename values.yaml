@@ -1,36 +1,47 @@
+# ── Global defaults (you can keep them empty) ─────────────────────
 global: {}
 
-matrix:
-  server:
-    serverName: "ess-helm-production.up.railway.app"
-    ingress:
-      enabled: true
-      host: "ess-helm-production.up.railway.app"
-    synapse: {}   # keep defaults
+# ── Core Synapse server ────────────────────────────────────────
+matrixServer:
+  # Public domain of the homeserver – must match the ingress host
+  serverName: "ess-helm-production.up.railway.app"
 
+  # Keep the default Synapse image – no need to specify anything else
+  synapse: {}
+
+  # Expose Synapse via Ingress
+  ingress:
+    enabled: true
+    host: "ess-helm-production.up.railway.app"
+
+# ── Element web client ────────────────────────────────────────
 elementWeb:
   enabled: true
   ingress:
     enabled: true
     host: "ess-helm-production.up.railway.app"
 
+# ── Element admin UI ───────────────────────────────────────────
 elementAdmin:
   enabled: true
   ingress:
     enabled: true
     host: "ess-helm-production.up.railway.app"
 
+# ── Matrix Authentication Service (MAS) ───────────────────────
 matrixAuthenticationService:
   enabled: true
   ingress:
     enabled: true
     host: "ess-helm-production.up.railway.app"
 
+# ── Matrix RTC (voice/video) ─────────────────────────────────
 matrixRTC:
   enabled: true
   ingress:
     enabled: true
     host: "ess-helm-production.up.railway.app"
 
+# ── Well‑known delegation (optional) ───────────────────────────
 wellKnownDelegation:
-  enabled: true   # still requires serverName, which we already set above
+  enabled: true # this still requires `serverName`, which we set above
