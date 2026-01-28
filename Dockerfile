@@ -9,24 +9,16 @@ RUN apk add --no-cache bash curl ca-certificates && \
     chmod +x /usr/local/bin/helm && \
     rm -rf linux-amd64
 
-# 3️⃣ (Optional) Install kubectl if you later want to talk to a real K8s cluster
-# RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
-#     chmod +x kubectl && mv kubectl /usr/local/bin/
+# 3️⃣ Clone the chart repo (use the branch/tag you need)
+WORKDIR /chart
+RUN git clone https://github.com/kimsokhom/ess-helm.git . \
+    && git checkout main   # or a specific tag/commit
 
-# 4️⃣ Copy your Helm values file (we’ll create it next)
+# 4️⃣ Copy your custom values file (the one you keep in the repo)
 COPY values.yaml /app/values.yaml
 
 WORKDIR /app
-
-# 5️⃣ ENTRYPOINT – what runs when Railway starts the container
-#    • Add the chart repo
-#    • Update repo index
-#    • Render the chart to a file called rendered.yaml
-#    • Keep the container alive so Railway can show the logs
 ENTRYPOINT ["bash", "-c", "\
-  helm repo add ess-repo https://github.com/kimsokhom/ess-helm.git && \
-  helm repo update && \
-  helm template ess-release ess-repo/ess-chart -f /app/values.yaml > rendered.yaml && \
-  echo '--- Rendered manifest saved as rendered.yaml ---' && \
-  cat rendered.yaml && \
+  helm template ess-release /chart -f /app/values.yaml > rendered.yaml && \
+  echo '--- rendered.yaml ---' && cat rendered.yaml && \
   tail -f /dev/null"]
