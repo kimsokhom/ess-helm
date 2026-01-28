@@ -1,41 +1,63 @@
+# ────────────────────────────────────────────────────────────────
+# 1️⃣ Global defaults – you can leave this empty
+# ────────────────────────────────────────────────────────────────
 global: {}
 
-# ------------------- Synapse (homeserver) -------------------
-matrixServer:
+# ────────────────────────────────────────────────────────────────
+# 2️⃣ Synapse (the Matrix homeserver)
+# ────────────────────────────────────────────────────────────────
+matrix:
+  # Public hostname that clients will use to reach the homeserver
   serverName: "ess-helm-production.up.railway.app"
+
+  # ---------- Database ----------
   synapse:
-    # The chart will use this DSN to initialise the Synapse schema
+    # DSN that points to the **synapse_db** you created on Railway
     databaseUrl: "postgresql://synapse_user:SynapsePass123@postgres.railway.internal:5432/synapse_db"
+    # (If you prefer the public host instead of the internal one,
+    # replace `postgres.railway.internal` with the value of PGHOST
+    # you see in Railway → Settings → Variables.)
+
+  # ---------- Ingress ----------
   ingress:
-    enabled: true
+    # No `enabled:` here – the chart enables the ingress automatically
+    # when you set a host.
     host: "ess-helm-production.up.railway.app"
 
-# ------------------- Matrix Authentication Service (MAS) -------------------
+# ────────────────────────────────────────────────────────────────
+# 3️⃣ Matrix Authentication Service (MAS)
+# ────────────────────────────────────────────────────────────────
 matrixAuthenticationService:
-  enabled: true
+  enabled: true # turn the whole service on
+  # ---------- Database ----------
+  # The chart accepts either `databaseUrl` **or** the wrapper
+  # `externalDatabase.url`. Both work; we use the shorter form.
   databaseUrl: "postgresql://mas_user:MasPass456@postgres.railway.internal:5432/mas_db"
+
+  # ---------- Ingress ----------
   ingress:
-    enabled: true
     host: "ess-helm-production.up.railway.app"
 
-# ------------------- UI components (you can keep them enabled) -------------------
+# ────────────────────────────────────────────────────────────────
+# 4️⃣ UI components – you can keep them enabled if you want a web UI
+# ────────────────────────────────────────────────────────────────
 elementWeb:
   enabled: true
   ingress:
-    enabled: true
     host: "ess-helm-production.up.railway.app"
 
 elementAdmin:
   enabled: true
   ingress:
-    enabled: true
     host: "ess-helm-production.up.railway.app"
 
 matrixRTC:
   enabled: true
   ingress:
-    enabled: true
     host: "ess-helm-production.up.railway.app"
 
+# ────────────────────────────────────────────────────────────────
+# 5️⃣ Well‑known delegation (optional)
+# ────────────────────────────────────────────────────────────────
 wellKnownDelegation:
-  enabled: true # still needs serverName (already set above)
+  enabled: true # still requires `serverName` (already set above)
