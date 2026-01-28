@@ -6,29 +6,31 @@ synapse:
   ingress:
     host: "ess-helm-production.up.railway.app"
 
-  # Split the synapse_db connection here
   postgres:
     host: "postgres.railway.internal"
     port: 5432
     user: "synapse_user"
-    password: "SynapsePass123"
+    # The password must be an object with a 'value' key
+    password:
+      value: "SynapsePass123"
     database: "synapse_db"
-    sslmode: "require" # Recommended for cloud databases
+    # sslmode removed as it is not supported in this schema block
 
-# 3. Matrix Authentication Service
+# 3. Matrix Authentication Service (MAS)
 matrixAuthenticationService:
   enabled: true
   ingress:
     host: "ess-helm-production.up.railway.app"
 
-  # Split the mas_db connection here
   postgres:
     host: "postgres.railway.internal"
     port: 5432
     user: "mas_user"
-    password: "MasPass456"
+    # The password must be an object with a 'value' key
+    password:
+      value: "MasPass456"
     database: "mas_db"
-    sslmode: "require"
+    # sslmode removed as it is not supported in this schema block
 
 # 4. UI Components
 elementWeb:
