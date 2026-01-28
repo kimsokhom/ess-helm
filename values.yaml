@@ -1,25 +1,34 @@
-# 1. Global Server Name (Required at the top level for matrix-stack)
+# 1. Global Server Name
 serverName: "ess-helm-production.up.railway.app"
 
 # 2. Synapse Configuration
 synapse:
-  # Host for the Synapse API
   ingress:
     host: "ess-helm-production.up.railway.app"
 
-  # The key is 'postgres', not 'database'
+  # Split the synapse_db connection here
   postgres:
-    # Most ESS charts allow a direct connection URL
-    url: "postgresql://synapse_user:SynapsePass123@postgres.railway.internal:5432/synapse_db"
+    host: "postgres.railway.internal"
+    port: 5432
+    user: "synapse_user"
+    password: "SynapsePass123"
+    database: "synapse_db"
+    sslmode: "require" # Recommended for cloud databases
 
-# 3. Matrix Authentication Service (The key must be the full name)
+# 3. Matrix Authentication Service
 matrixAuthenticationService:
   enabled: true
   ingress:
     host: "ess-helm-production.up.railway.app"
 
+  # Split the mas_db connection here
   postgres:
-    url: "postgresql://mas_user:MasPass456@postgres.railway.internal:5432/mas_db"
+    host: "postgres.railway.internal"
+    port: 5432
+    user: "mas_user"
+    password: "MasPass456"
+    database: "mas_db"
+    sslmode: "require"
 
 # 4. UI Components
 elementWeb:
