@@ -9,10 +9,10 @@ synapse:
   postgres:
     host: "turntable.proxy.rlwy.net"
     port: 25787
-    user: "synapse_user"
+    user: "postgres"
     # The password must be an object with a 'value' key
     password:
-      value: "SynapsePass123"
+      value: "bfdyTYgtFgjWjSlZMLHZMKPMXpxGpcEe"
     database: "synapse_db"
     # sslmode removed as it is not supported in this schema block
 
@@ -25,10 +25,10 @@ matrixAuthenticationService:
   postgres:
     host: "turntable.proxy.rlwy.net"
     port: 25787
-    user: "mas_user"
+    user: "postgres"
     # The password must be an object with a 'value' key
     password:
-      value: "MasPass456"
+      value: "bfdyTYgtFgjWjSlZMLHZMKPMXpxGpcEe"
     database: "mas_db"
     # sslmode removed as it is not supported in this schema block
 

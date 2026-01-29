@@ -1,0 +1,9 @@
+apiVersion: v2
+name: ess-on-railway
+description: My Matrix Self-Hosting
+type: application
+version: 1.0.0
+dependencies:
+  - name: matrix-stack
+    version: 26.1.2 # Use the version from your logs
+    repository: https://element-hq.github.io/element-server-suite
