@@ -7,8 +7,8 @@ synapse:
     host: "ess-helm-production.up.railway.app"
 
   postgres:
-    host: "postgres.railway.internal"
-    port: 5432
+    host: "turntable.proxy.rlwy.net"
+    port: 25787
     user: "synapse_user"
     # The password must be an object with a 'value' key
     password:
@@ -23,8 +23,8 @@ matrixAuthenticationService:
     host: "ess-helm-production.up.railway.app"
 
   postgres:
-    host: "postgres.railway.internal"
-    port: 5432
+    host: "turntable.proxy.rlwy.net"
+    port: 25787
     user: "mas_user"
     # The password must be an object with a 'value' key
     password:
